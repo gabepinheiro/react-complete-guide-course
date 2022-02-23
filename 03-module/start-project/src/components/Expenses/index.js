@@ -2,7 +2,7 @@ import { ExpenseItem } from './ExpenseItem'
 
 import './Expenses.css'
 
-export function Expenses (props) {
+export const Expenses = (props) => {
   return (
     <div>
       <h2>Let's get started!</h2>
