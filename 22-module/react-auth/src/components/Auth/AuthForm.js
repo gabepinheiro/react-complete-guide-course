@@ -15,36 +15,40 @@ const AuthForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault()
 
+    let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_API_KEY}`
+    if(isLogin) {
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`
+    }
+
     setIsLoading(true)
-    if (!isLogin) {
-      try {
-        const r = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_API_KEY}`, {
-          method: 'POST',
-          body: JSON.stringify({
-            email: enteredEmail.current.value,
-            password: enteredPassword.current.value,
-            returnSecureToken: true
-          }),
-          headers:{
-            'Content-Type': 'application/json'
-          },
-        })
+    try {
+      const r = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          email: enteredEmail.current.value,
+          password: enteredPassword.current.value,
+          returnSecureToken: true
+        }),
+        headers:{
+          'Content-Type': 'application/json'
+        },
+      })
 
-        setIsLoading(false)
-        const result = await r.json()
+      setIsLoading(false)
+      const result = await r.json()
 
-        if(result.error) {
-          const { error } = result
-          let errorMessage = !error.message
-            ? 'Authentication failed!'
-            : error.message
+      if(result.error) {
+        const { error } = result
+        let errorMessage = !error.message
+          ? 'Authentication failed!'
+          : error.message
 
-          throw new Error(errorMessage)
-        }
-        console.log(result)
-      } catch (error) {
-        alert((error.message))
+        throw new Error(errorMessage)
       }
+      console.log(result)
+      alert(!isLogin ? 'Account created successfully!' : 'Successfully authenticated')
+    } catch (error) {
+      alert((error.message))
     }
   }
 
