@@ -6,6 +6,7 @@ const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const enteredEmail = useRef('')
   const enteredPassword = useRef('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -14,6 +15,7 @@ const AuthForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault()
 
+    setIsLoading(true)
     if (!isLogin) {
       try {
         const r = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_API_KEY}`, {
@@ -28,10 +30,20 @@ const AuthForm = () => {
           },
         })
 
+        setIsLoading(false)
         const result = await r.json()
+
+        if(result.error) {
+          const { error } = result
+          let errorMessage = !error.message
+            ? 'Authentication failed!'
+            : error.message
+
+          throw new Error(errorMessage)
+        }
         console.log(result)
       } catch (error) {
-        console.log(error.message)
+        alert((error.message))
       }
     }
   }
@@ -49,7 +61,8 @@ const AuthForm = () => {
           <input type='password' id='password' required ref={enteredPassword} />
         </div>
         <div className={classes.actions}>
-          <button>{isLogin ? 'Login' : 'Create Account'}</button>
+          {!isLoading && <button>{isLogin ? 'Login' : 'Create Account'}</button>}
+          {isLoading && <p>Sending request...</p>}
           <button
             type='button'
             className={classes.toggle}
