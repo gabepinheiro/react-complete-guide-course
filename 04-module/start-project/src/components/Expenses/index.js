@@ -1,4 +1,3 @@
-import { NewExpense } from '../NewExpense'
 import { ExpenseItem } from './ExpenseItem'
 
 import './Expenses.css'
@@ -6,7 +5,6 @@ import './Expenses.css'
 export const Expenses = (props) => {
   return (
     <div>
-      <NewExpense />
       <div className='expenses'>
         <ExpenseItem
           title={props.items[0].title}
