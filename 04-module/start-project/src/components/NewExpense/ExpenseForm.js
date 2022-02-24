@@ -28,6 +28,10 @@ export const ExpenseForm = () => {
     }
 
     console.log(expenseDate)
+
+    setEnteredTitle('')
+    setEnteredAmount('')
+    setEnteredDate('')
   }
 
   return (
@@ -38,6 +42,7 @@ export const ExpenseForm = () => {
             <input
               id="title"
               type="text"
+              value={enteredTitle}
               onChange={titleChangeHandler}
             />
           </div>
@@ -49,6 +54,7 @@ export const ExpenseForm = () => {
               type="number"
               min='0.01'
               step='0.01'
+              value={enteredAmount}
               onChange={amountChangeHandler}
              />
           </div>
@@ -59,6 +65,7 @@ export const ExpenseForm = () => {
               type="date"
               min='2019-01-01'
               step='2023-12-31'
+              value={enteredDate}
               onChange={dateChangeHandler}
              />
           </div>
