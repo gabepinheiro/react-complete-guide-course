@@ -1,8 +1,12 @@
 import { useRef, useState } from 'react';
+import { useAuthContext } from '../../store/auth-context';
 
 import classes from './AuthForm.module.css';
 
 const AuthForm = () => {
+
+  const { onLogin } = useAuthContext()
+
   const [isLogin, setIsLogin] = useState(true);
   const enteredEmail = useRef('')
   const enteredPassword = useRef('')
@@ -45,8 +49,9 @@ const AuthForm = () => {
 
         throw new Error(errorMessage)
       }
-      console.log(result)
+
       alert(!isLogin ? 'Account created successfully!' : 'Successfully authenticated')
+      onLogin(result.idToken)
     } catch (error) {
       alert((error.message))
     }
