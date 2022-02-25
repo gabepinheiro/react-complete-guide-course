@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const contextValue = {
-    token,
+    idToken: token,
     isLoggedIn,
     onLogin: loginHandler,
     onLogout: logoutHandler
