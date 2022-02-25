@@ -52,7 +52,10 @@ const AuthForm = () => {
       }
 
       alert(!isLogin ? 'Account created successfully!' : 'Successfully authenticated')
-      onLogin(result.idToken)
+
+      const expirationTime = new Date(new Date().getTime() + (+result.expiresIn * 1000))
+      onLogin(result.idToken, expirationTime.toISOString())
+
       history.replace('/')
     } catch (error) {
       alert((error.message))
