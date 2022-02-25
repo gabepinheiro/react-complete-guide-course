@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import { useAuthContext } from '../../store/auth-context';
 
 import classes from './AuthForm.module.css';
 
 const AuthForm = () => {
-
+  const history = useHistory()
   const { onLogin } = useAuthContext()
 
   const [isLogin, setIsLogin] = useState(true);
@@ -52,6 +53,7 @@ const AuthForm = () => {
 
       alert(!isLogin ? 'Account created successfully!' : 'Successfully authenticated')
       onLogin(result.idToken)
+      history.replace('/')
     } catch (error) {
       alert((error.message))
     }
