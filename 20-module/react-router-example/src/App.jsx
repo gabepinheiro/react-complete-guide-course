@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom"
+import { Redirect, Route, Switch } from "react-router-dom"
 import { MainHeader } from './layout/main-header'
 import Products from "./pages/products"
 import Welcome from "./pages/welcome"
@@ -10,6 +10,9 @@ export function App () {
       <MainHeader />
       <main>
         <Switch>
+          <Route path='/' exact>
+            <Redirect to='/welcome' />
+          </Route>
           <Route path="/welcome">
             <Welcome />
           </Route>
