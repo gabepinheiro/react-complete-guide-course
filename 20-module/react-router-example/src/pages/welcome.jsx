@@ -1,12 +1,11 @@
-import { Route } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 
 function Welcome () {
   return (
     <div>
       <h1>Welcome</h1>
-      <Route path="welcome/new-user">
-        <p>Welcome, new user!</p>
-      </Route>
+      <Link to="new-user">New User</Link>
+      <Outlet />
     </div>
   )
 }

@@ -2,26 +2,27 @@ import { NavLink } from "react-router-dom"
 
 import classes from './main-header.module.css'
 
+const AcitveNavLink = ({children, ...props}) => {
+  return (
+    <NavLink {...props} className={(nav) =>
+      nav.isActive
+      ? classes.active : ''}
+    >
+      {children}
+    </NavLink>
+  )
+}
+
 export function MainHeader () {
   return (
     <header className={classes.header}>
       <nav>
         <ul>
           <li>
-            <NavLink
-             activeClassName={classes.active}
-             to="/welcome"
-            >
-              Welcome
-            </NavLink>
+            <AcitveNavLink to="/welcome" children='Welcome' />
           </li>
           <li>
-            <NavLink
-              activeClassName={classes.active}
-              to="/products"
-            >
-              Products
-            </NavLink>
+           <AcitveNavLink to="/products" children='Products' />
           </li>
         </ul>
       </nav>
