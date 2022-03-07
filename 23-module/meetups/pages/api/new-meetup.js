@@ -1,18 +1,26 @@
-function handler (req, res) {
+import { MongoClient } from 'mongodb'
+
+async function handler (req, res) {
   if(req.method === 'POST') {
     const data = req.body
 
-    const {
-      image,
-      title,
-      address,
-      description
-    } = data
+    const client = await MongoClient.connect(
+      process.env.CONNECT_MONGODB_URL
+    )
 
-    console.log(data)
+    const db = client.db()
 
-    return res.json({
-      ok: true
+    const meetupsCollection = db.collection('meetups')
+
+    const result = await meetupsCollection.insertOne(data)
+
+    console.log(result)
+
+    client.close()
+
+    return res.status(201).json({
+      ok: true,
+      message: 'Meetup inserted!'
     })
   }
 
