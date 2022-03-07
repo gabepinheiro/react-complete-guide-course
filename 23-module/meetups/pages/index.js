@@ -31,6 +31,7 @@ export async function getStaticProps () {
   const meetups = await meetupsCollection.find().toArray()
 
   return {
+    revalidate: 1,
     props: {
       meetups: meetups.map((meetup) => {
         return {
