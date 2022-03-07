@@ -23,6 +23,19 @@ function HomePage (props) {
   )
 }
 
+// export async function getServerSideProps (context) {
+//   // console.log(
+//   //   context.req,
+//   //   context.res
+//   // )
+
+//   return {
+//     props: {
+//       meetups: DUMMY_DATA
+//     }
+//   }
+// }
+
 export async function getStaticProps () {
   //fetch data from an API
   return {
