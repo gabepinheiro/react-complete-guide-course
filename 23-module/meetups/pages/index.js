@@ -9,7 +9,7 @@ const DUMMY_DATA = [
     description: 'This a first meetup!'
   },
   {
-    id: 'm1',
+    id: 'm2',
     title: 'A First Meetup',
     image: 'https://upload.wikimedia.org/wikipedia/commons/9/90/Stabil.JPG',
     address: 'Some address 17, 12345 Some City',
